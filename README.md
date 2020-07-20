@@ -37,5 +37,11 @@ Currently used parts:
 - 3D printed reaction wheels
 - Wires
 
+## Files
+> Code: contains code for the arduino
+>
+> hardwares:
+>>test-platform: contains model and 3d-print files for the test platform for small scale tests
+
 ## Credits:
 - to be done.
