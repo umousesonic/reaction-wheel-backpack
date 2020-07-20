@@ -1,9 +1,9 @@
 # Reaction Wheel Backpack Project
 
-##Project progress:
+## Project progress:
 Small-scale prototype testing. Code not completed.
 
-##TODOs:
+## TODOs:
 - Reverse motor function
 - Tune PID gains
 - Adjust trigger timing
@@ -14,7 +14,7 @@ It is a project to create **backpack-styled assistive device** for people with *
  using **reaction wheels** to prevent them from fall injuries.
 
 
-##How does it work?
+## How does it work?
 The project uses a **motion sensor** to sense the body position and when senses a fall 
 it will activate the reaction wheels to provide counter acting force and stop the fall (or lessen the impact by 
 reducing the speed).
@@ -27,7 +27,7 @@ Basically follows the sequence:
 *motion sensor --> PID controller --> ESC --> Motor --> Reaction wheel --> motion of the person*
 
 
-##Parts employed
+## Parts employed
 Currently used parts:
 - Arduino Mini
 - MPU6050 module
@@ -37,5 +37,5 @@ Currently used parts:
 - 3D printed reaction wheels
 - Wires
 
-##Credits:
+## Credits:
 - to be done.
