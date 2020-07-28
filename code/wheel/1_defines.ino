@@ -8,19 +8,21 @@ bool blinkState = false;
 
 
 //////////////////////////////////////ESCs///////////////////////////////////////////////
-#define ROLLMOTORPIN 8
-#define PITCHMOTORPIN 7
+#define ROLLMOTORPIN 7
+#define PITCHMOTORPIN 8
 #define SPEED_MIN 1000
 #define SPEED_MAX 2000
-#define DEFAULT_SPEED 1000
+#define DEFAULT_SPEED 1500
 
+#define ROLL_MIXER 1
+#define PITCH_MIXER -1
 
 #define myThreshold -1000
 
 ESC rollMotor (ROLLMOTORPIN,  SPEED_MIN, SPEED_MAX, DEFAULT_SPEED);
 ESC pitchMotor(PITCHMOTORPIN, SPEED_MIN, SPEED_MAX, DEFAULT_SPEED);
 
-int throttle[] = {1000, 1000, 1000};
+int throttle[] = {1500, 1500, 1500};
 
 //////////////////////////////////// MPU control/status vars//////////////////////////////
 bool dmpReady = false;  // set true if DMP init was successful
@@ -38,7 +40,7 @@ VectorInt16 aaWorld;    // [x, y, z]            world-frame accel sensor measure
 VectorFloat gravity;    // [x, y, z]            gravity vector
 float euler[3];         // [psi, theta, phi]    Euler angle container
 float ypr[3];           // [yaw, pitch, roll]   yaw/pitch/roll container and gravity vector
-double ypr_input[3];    // ypr for pid input
+double yaw, pitch, roll;
 
 ///////////////////////////////////// MPU Calibration///////////////////////////////////////
 
@@ -52,16 +54,16 @@ double ypr_input[3];    // ypr for pid input
 //////////////////////////////////////PID Controller defines///////////////////////////////////
 double roll_PID_Accel, pitch_PID_Accel;
 
-double rollKp = 20;
-double rollKi = 0.02;
-double rollKd = 10;
+double rollKp = 1;
+double rollKi = 0;
+double rollKd = 0;
 
-double pitchKp = 20;
-double pitchKi = 0.02;
-double pitchKd = 10;
+double pitchKp = 1;
+double pitchKi = 0;
+double pitchKd = 0;
 
-PID rollPID (&ypr_input[2], &roll_PID_Accel,  0, rollKp,  rollKi,  rollKd,  DIRECT);
-PID pitchPID(&ypr_input[1], &pitch_PID_Accel, 0, pitchKp, pitchKi, pitchKd, DIRECT);
+PID rollPID (&roll, &roll_PID_Accel,  0, rollKp,  rollKi,  rollKd,  DIRECT);
+PID pitchPID(&pitch, &pitch_PID_Accel, 0, pitchKp, pitchKi, pitchKd, DIRECT);
 
 
 
@@ -69,4 +71,6 @@ PID pitchPID(&ypr_input[1], &pitch_PID_Accel, 0, pitchKp, pitchKi, pitchKd, DIRE
 ////////////////////////////////// Program Flags & Variables //////////////////////////////////////////
 bool isTriggered = false;
 double triggerTime = 0;
-#define onTimeMax 500
+int startMillis = 0;
+unsigned long debugMode = 0;
+unsigned long int onTimeMax = 500;

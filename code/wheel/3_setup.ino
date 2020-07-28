@@ -43,9 +43,9 @@ void setup() {
 
     
     // factory offset
-    useFactoryOffset();
-    
+    //useFactoryOffset();
     //useCalibOffset();
+    usePretestedOffset();
 
     // 开启DMP及确认DMP正常 (returns 0 if so)
     if (devStatus == 0) {
@@ -80,14 +80,14 @@ void setup() {
 
     // Setup PID controller
     rollPID.SetSampleTime(100);
-    rollPID.SetOutputLimits(0.0,1000.0);
+    rollPID.SetOutputLimits(-500.0,500.0);
     rollPID.SetMode(AUTOMATIC);
     
     pitchPID.SetSampleTime(100);
-    pitchPID.SetOutputLimits(0.0,1000.0);
+    pitchPID.SetOutputLimits(-500.0,500.0);
     pitchPID.SetMode(AUTOMATIC);
 
-    
+    startMillis = millis();
     
 
     
